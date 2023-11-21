@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { Link, NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 
 const AllEmployees = () => {
     const [employeeData, setEmployeeData] = useState([]);
@@ -21,30 +21,26 @@ const AllEmployees = () => {
 
     const handleDelete = async (id) => {
         console.log(id);
-        try {
-            await axios.delete(`http://127.0.0.1:8000/api/employee/${id}`);
-            const newEmpData = employeeData.filter(emp => emp.id !== id);
-            alert('Employee record deleted!');
-            setEmployeeData(newEmpData);
-        } catch (error) {
-            console.log('Something is wrong');
+        const confirmDelete = window.confirm('Are you sure you want to delete this employee?');
+        if (confirmDelete) {
+            try {
+                await axios.delete(`http://127.0.0.1:8000/api/employee/${id}`);
+                const newEmpData = employeeData.filter(emp => emp.id !== id);
+                alert('Employee record deleted!');
+                setEmployeeData(newEmpData);
+            } catch (error) {
+                console.log('Something is wrong');
+            }
         }
     }
 
   return (
     <div className="container">
-        <div className="d-flex justify-content-between align-items-center m-4">
-            <span>
-                <h1>Employee List</h1>
-            </span>
-            <span>
-                <Link to="/add">
-                    <button type="button" className="btn btn-primary btn-sm">Add Employee</button>
-                </Link>
-            </span>
+        <div className="d-flex justify-content-center align-items-center m-4">
+            <h1>Employee List</h1>
         </div>
         <div className="mt-4">
-            <table className="table table-striped">
+            <table className="table table-striped table-hover table-bordered">
                 <thead>
                     <tr>
                         <th className="text-center">ID</th>
@@ -55,7 +51,11 @@ const AllEmployees = () => {
                 </thead>
                 <tbody>
                     {
-                        employeeData.map((employee) => (
+                        employeeData.length === 0 ? (
+                            <tr>
+                                <td colSpan={4} className="text-center">No employee records to display</td>
+                            </tr>
+                        ) : (employeeData.map((employee) => (
                             <tr key={employee.id}>
                                 <td className="text-center align-middle">{employee.id}</td>
                                 <td className="text-center align-middle">{employee.lastName}</td>
@@ -70,7 +70,7 @@ const AllEmployees = () => {
                                     <button type="button" className="btn btn-danger btn-sm m-2" onClick={() => handleDelete(employee.id)}>Delete</button>
                                 </td>
                             </tr>
-                        ))
+                        ))) 
                     }
                 </tbody>
             </table>

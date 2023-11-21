@@ -28,7 +28,7 @@ const AddEmployee = () => {
         try {
             const response = await axios.post('http://127.0.0.1:8000/api/employee', employeeField);
             console.log(response);
-            alert('New user has been added!');
+            alert('New employee has been added!');
             navigate('/');
         } catch (error) {
             console.log('Something is wrong');
@@ -45,7 +45,7 @@ const AddEmployee = () => {
             </span>
             <span>
                 <Link to="/">
-                    <button type="button" className="btn btn-primary btn-sm">Back</button>
+                    <button type="button" className="btn btn-danger btn-sm">Cancel</button>
                 </Link>
             </span>
         </div>
@@ -62,12 +62,12 @@ const AddEmployee = () => {
                                 <input type="text" name="firstName" id="firstName" className="form-control mt-2" onChange={e => changeEmployeeField(e)} required />
                             </div>
                             <div className="col-md-4">
-                                <label>Last Name</label>
-                                <input type="text" name="lastName" id="lastName" className="form-control mt-2" onChange={e => changeEmployeeField(e)} required />
-                            </div>
-                            <div className="col-md-4">
                                 <label>Middle Name</label>
                                 <input type="text" name="middleName" id="middleName" className="form-control mt-2" onChange={e => changeEmployeeField(e)} required />
+                            </div>
+                            <div className="col-md-4">
+                                <label>Last Name</label>
+                                <input type="text" name="lastName" id="lastName" className="form-control mt-2" onChange={e => changeEmployeeField(e)} required />
                             </div>
                         </div>
                         <div className="row p-2">
