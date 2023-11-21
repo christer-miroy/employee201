@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const AddEmployee = () => {
     const [employeeField, setEmployeeField] = useState({
@@ -37,17 +37,15 @@ const AddEmployee = () => {
 
     const navigate = useNavigate();
 
+    const cancelUpdate = () => {
+        alert('Employee update cancelled.');
+        navigate('/');
+    };
+
   return (
     <div className="container">
         <div className="d-flex justify-content-between align-items-center m-4">
-            <span>
-                <h1>Add Employee</h1>
-            </span>
-            <span>
-                <Link to="/">
-                    <button type="button" className="btn btn-danger btn-sm">Cancel</button>
-                </Link>
-            </span>
+            <h1>Add Employee</h1>
         </div>
         <div className="card">
             <div className="card-header">
@@ -87,8 +85,8 @@ const AddEmployee = () => {
                         <div className="row p-2">
                             <div className="col-md-4">
                                 <label>Department</label>
-                                <select name="department" id="department" className="form-control mt-2" required onChange={e => changeEmployeeField(e)} defaultValue="select" >
-                                    <option value="select" disabled>Select Department</option>
+                                <select name="department" id="department" className="form-control mt-2" required onChange={e => changeEmployeeField(e)} defaultValue="Select" >
+                                    <option value="Select" disabled>Select Department</option>
                                     <option value="IT">IT</option>
                                     <option value="HR">HR</option>
                                     <option value="Finance">Finance</option>
@@ -99,7 +97,7 @@ const AddEmployee = () => {
                             </div>
                             <div className="col-md-4">
                                 <label>Status</label>
-                                <select name="status" id="status" className="form-control mt-2" required onChange={e => changeEmployeeField(e)} defaultValue="select">
+                                <select name="status" id="status" className="form-control mt-2" required onChange={e => changeEmployeeField(e)} defaultValue="Select">
                                     <option value="Select" disabled>Select Status</option>
                                     <option value="Probation">Probation</option>
                                     <option value="Regular">Regular</option>
@@ -122,6 +120,7 @@ const AddEmployee = () => {
                         </div>
                     </div>
                     <button type="button" className="btn btn-primary btn-sm mt-2" onClick={e => handleSubmit(e)}>Submit</button>
+                    <button type="button" className="btn btn-danger btn-sm m-2" onClick={cancelUpdate}>Cancel</button>
                 </form>
             </div>
         </div>
