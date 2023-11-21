@@ -38,7 +38,7 @@ const AddEmployee = () => {
     const navigate = useNavigate();
 
     const cancelUpdate = () => {
-        alert('Employee update cancelled.');
+        alert('Add new employee cancelled.');
         navigate('/');
     };
 
